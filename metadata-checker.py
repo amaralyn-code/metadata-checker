@@ -1,9 +1,38 @@
 import os, music_tag
-directory = r'C:\Users\micro\Music\my music\music\artists'
+directory = r'C:\Users\micro\OneDrive\Documents\code'
 
-relevant_traits = ['title', 'artist', 'album', 'tracknumber', 'albumartist']
+relevant_traits = []
 need_fixing = []
 
+def get_relevant_traits():
+        print("Please enter the metadata traits that are important to you. Leave blank to proceed: ")
+        cont = True
+        blank = ''
+        while cont:
+                blank = str(input(''))
+                if blank == 'name' or blank == 'title' or blank == 'song' or blank == 'tracktitle':
+                        relevant_traits.append('title')
+                if blank == 'album' or blank == 'record':
+                        relevant_traits.append('album')
+                if blank == 'artist' or blank == 'band':
+                        relevant_traits.append('artist')
+                if blank == 'album artist' or blank == 'albumartist':
+                        relevant_traits.append('albumartist')
+                if blank == 'composer':
+                        relevant_traits.append('composer')
+                if blank == 'discnumber' or blank == 'disknumber':
+                        relevant_traits.append('discnumber')
+                if blank == 'genre':
+                        relevant_traits.append('genre')
+                if blank == 'totaldiscs' or blank == 'disknumber' or blank == 'disc number' or blank == 'disk number':
+                        relevant_traits.append('totaldiscs')
+                if blank == 'tracknumber' or blank == 'track number':
+                        relevant_traits.append('tracknumber')
+                if blank == 'year' or 'release year' or 'release date':
+                        relevant_traits.append('year')
+                if blank == '':
+                        cont = False
+ 
 def check_if_audio(filename):
         audio_names = ['.aac', '.aiff', '.dsf', '.flac', '.m4a', '.mp3', '.ogg', '.opus', '.wav']
         for name in audio_names:
@@ -109,7 +138,9 @@ def manual_fix():
                         item[0][item[2]] = manual_trait
                         item[0].save()   
 
+
 #autofix(music_tag.load_file(r'c:\Users\micro\Music\my-music\music\artists\g-jones\acid-disk\03-help!-i-cant-find-my-way-out.wav'), '03-help!-i-cant-find-my-way-out.wav', 'tracknumber')
+get_relevant_traits()
 for filename in os.listdir(directory):
         check_traits(filename)  
 manual_fix()
